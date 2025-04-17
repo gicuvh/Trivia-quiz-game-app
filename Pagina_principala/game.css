@@ -1,0 +1,75 @@
+/* ----------- Stiluri existente ----------- */
+.choice-container {
+    display: flex;
+    margin-bottom: 0.5rem;
+    width: 100%;
+    font-size: 1.8rem;
+    border: 0.1rem solid rgba(86, 165, 235, 0.25);
+    background-color: white;
+    transition: transform 150ms, box-shadow 150ms;
+}
+
+.choice-container:hover {
+    cursor: pointer;
+    box-shadow: 0 0.4rem 0 rgba(86, 185, 235, 0.5);
+    transform: translateY(-0.1rem);
+}
+
+.choice-prefix {
+    padding: 1.5rem 2.5rem;
+    background-color: #56a5eb;
+    color: white;
+}
+
+.choice-text {
+    padding: 1.5rem;
+    width: 100%;
+}
+
+/* ----------- Stiluri noi ----------- */
+
+/* Progres bar */
+#progress-container {
+    width: 100%;
+    background-color: #e0e0e0;
+    height: 20px;
+    border-radius: 50px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+#progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #76c7c0;
+    border-radius: 50px;
+    transition: width 0.3s ease-in-out;
+}
+
+/* Chenar pentru scor */
+#score-box {
+    background-color: #f0f8ff;
+    padding: 1rem 2rem;
+    border: 2px solid #56a5eb;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    display: inline-block;
+    margin-bottom: 2rem;
+}
+
+#score-box span {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #007acc;
+}
+
+/* Răspunsuri corecte și greșite */
+.correct {
+    background-color: #28a745 !important;
+    color: white;
+}
+
+.incorrect {
+    background-color: #dc3545 !important;
+    color: white;
+}

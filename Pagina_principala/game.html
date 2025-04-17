@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Quick Quiz - Play</title>
+    <link rel="stylesheet" href="app.css" />
+    <link rel="stylesheet" href="game.css" />
+    <style>
+      /* Progres bar stilizat */
+      #progressBar {
+        width: 100%;
+        height: 20px;
+        background-color: #e0e0e0;
+        border-radius: 50px;
+        overflow: hidden;
+        margin-top: 0.5rem;
+      }
+
+      #progressBarFull {
+        height: 100%;
+        width: 0%;
+        background-color: #76c7c0;
+        transition: width 0.3s ease-in-out;
+      }
+
+      /* Stil pentru scor */
+      #hud-item {
+        background-color: #f0f8ff;
+        border: 2px solid #56a5eb;
+        border-radius: 10px;
+        padding: 1rem;
+        margin: 0.5rem;
+      }
+
+      /* Răspuns corect și greșit */
+      .correct {
+        background-color: #28a745 !important;
+        color: white;
+      }
+
+      .incorrect {
+        background-color: #dc3545 !important;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar se va încărca aici -->
+    <div id="navbar-placeholder"></div>
+
+    <div class="container">
+      <div id="loader"></div>
+
+      <div id="game" class="justify-center flex-column hidden">
+        <div id="hud">
+          <!-- Progres -->
+          <div id="hud-item">
+            <p id="progressText" class="hud-prefix">
+              Question
+            </p>
+            <div id="progressBar">
+              <div id="progressBarFull"></div>
+            </div>
+          </div>
+
+          <!-- Scor -->
+          <div id="hud-item">
+            <p class="hud-prefix">
+              Score
+            </p>
+            <h1 class="hud-main-text" id="score">0</h1>
+          </div>
+        </div>
+
+        <!-- Întrebare -->
+        <h2 id="question"></h2>
+
+        <!-- Variante de răspuns -->
+        <div class="choice-container">
+          <p class="choice-prefix">A</p>
+          <p class="choice-text" data-number="1"></p>
+        </div>
+        <div class="choice-container">
+          <p class="choice-prefix">B</p>
+          <p class="choice-text" data-number="2"></p>
+        </div>
+        <div class="choice-container">
+          <p class="choice-prefix">C</p>
+          <p class="choice-text" data-number="3"></p>
+        </div>
+        <div class="choice-container">
+          <p class="choice-prefix">D</p>
+          <p class="choice-text" data-number="4"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer se va încărca aici -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+      // Încarcă navbar-ul din fișierul separat
+      fetch('../navbar/navbar.html')
+        .then(res => res.text())
+        .then(data => {
+          document.getElementById('navbar-placeholder').innerHTML = data;
+
+          // După ce navbar-ul a fost încărcat, legăm evenimentul de log out
+          const logoutButton = document.getElementById('logout-btn');
+          if (logoutButton) {
+            logoutButton.addEventListener('click', function() {
+              // Logica de log out
+              alert('Logged out!');
+              window.location.href = "http://127.0.0.1:5500/Autentificare/login.html"; // Redirecționează utilizatorul la pagina de login
+            });
+          }
+        });
+
+      // Încarcă footer-ul din fișierul separat
+      fetch('../footer/footer.html')
+        .then(res => res.text())
+        .then(data => {
+          document.getElementById('footer-placeholder').innerHTML = data;
+        });
+    </script>
+
+    <script src="game.js"></script>
+  </body>
+</html>
