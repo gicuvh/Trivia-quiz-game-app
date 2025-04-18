@@ -6,118 +6,145 @@ const progressBarFull = document.getElementById('progressBarFull');
 const loader = document.getElementById('loader');
 const game = document.getElementById('game');
 
-let currentQuestion = {};
-let acceptingAnswers = false;
-let score = 0;
-let questionCounter = 0;
-let availableQuesions = [];
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+// Selecția categoriei
+const categorySelect = document.getElementById('category-select');
 
 let questions = [];
+let currentQuestionIndex = 0;
+let selectedAnswers = [];
+let score = 0;
+let finished = false;
 
-fetch('https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple')
-    .then((res) => {
-        return res.json();
-    })
-    .then((loadedQuestions) => {
-        questions = loadedQuestions.results.map((loadedQuestion) => {
-            const formattedQuestion = {
-                question: loadedQuestion.question,
-            };
+// Când pagina se încarcă, obține categoria selectată
+let selectedCategory = categorySelect ? categorySelect.value : 9; // Default to category 9 (General Knowledge)
 
-            const answerChoices = [...loadedQuestion.incorrect_answers];
-            formattedQuestion.answer = Math.floor(Math.random() * 4) + 1;
-            answerChoices.splice(
-                formattedQuestion.answer - 1,
-                0,
-                loadedQuestion.correct_answer
-            );
+categorySelect.addEventListener('change', (e) => {
+    selectedCategory = e.target.value;
+    loadQuestions(); // Reîncarcă întrebările pentru categoria aleasă
+});
 
-            answerChoices.forEach((choice, index) => {
-                formattedQuestion['choice' + (index + 1)] = choice;
+// Funcție de încărcare a întrebărilor pe baza categoriei
+function loadQuestions() {
+    fetch(`https://opentdb.com/api.php?amount=10&category=${selectedCategory}&difficulty=easy&type=multiple`)
+        .then(res => res.json())
+        .then(loaded => {
+            questions = loaded.results.map((q) => {
+                const formatted = { question: q.question };
+                const answers = [...q.incorrect_answers];
+                formatted.answer = Math.floor(Math.random() * 4) + 1;
+                answers.splice(formatted.answer - 1, 0, q.correct_answer);
+
+                answers.forEach((ans, i) => {
+                    formatted['choice' + (i + 1)] = ans;
+                });
+
+                return formatted;
             });
 
-            return formattedQuestion;
+            selectedAnswers = new Array(questions.length).fill(null);
+            startGame();
         });
+}
 
-        startGame();
-    })
-    .catch((err) => {
-        console.error(err);
-    });
+// Dacă nu se selectează o categorie, se folosește una implicită (General Knowledge)
+if (selectedCategory) {
+    loadQuestions();
+}
 
-// CONSTANTS
 const CORRECT_BONUS = 10;
-const MAX_QUESTIONS = 3;
 
-startGame = () => {
-    questionCounter = 0;
+function startGame() {
+    currentQuestionIndex = 0;
     score = 0;
-    availableQuesions = [...questions];
-    getNewQuestion();
     game.classList.remove('hidden');
     loader.classList.add('hidden');
-};
+    showQuestion(currentQuestionIndex);
+}
 
-getNewQuestion = () => {
-    if (availableQuesions.length === 0 || questionCounter >= MAX_QUESTIONS) {
-        localStorage.setItem('mostRecentScore', score);
-        return window.location.assign("../terminarea_jocului/end.html");
-    }
-
-    questionCounter++;
-    progressText.innerText = `Question ${questionCounter}/${MAX_QUESTIONS}`;
-    progressBarFull.style.width = `${(questionCounter / MAX_QUESTIONS) * 100}%`;
-
-    const questionIndex = Math.floor(Math.random() * availableQuesions.length);
-    currentQuestion = availableQuesions[questionIndex];
-    question.innerHTML = currentQuestion.question;
-
-    choices.forEach((choice) => {
-        const number = choice.dataset['number'];
-        choice.innerHTML = currentQuestion['choice' + number];
+function showQuestion(index) {
+    const q = questions[index];
+    question.innerHTML = q.question;
+    choices.forEach((choice, i) => {
+        choice.innerHTML = q['choice' + (i + 1)];
+        choice.parentElement.classList.remove('correct', 'incorrect');
     });
 
-    availableQuesions.splice(questionIndex, 1);
-    acceptingAnswers = true;
-};
+    // Actualizează bara de progres
+    progressText.innerText = `Question ${index + 1}/${questions.length}`;
+    progressBarFull.style.width = `${((index + 1) / questions.length) * 100}%`;
 
-choices.forEach((choice) => {
-    choice.addEventListener('click', (e) => {
-        if (!acceptingAnswers) return;
+    // Marchează răspunsul selectat anterior dacă există
+    const prevSelected = selectedAnswers[index];
+    if (prevSelected !== null) {
+        const correctAnswer = questions[index].answer;
+        const choice = choices[prevSelected - 1];
+        const classToApply = prevSelected == correctAnswer ? 'correct' : 'incorrect';
+        choice.parentElement.classList.add(classToApply);
+    }
+}
 
-        acceptingAnswers = false;
-        const selectedChoice = e.target;
-        const selectedAnswer = selectedChoice.dataset['number'];
+// Click pe opțiuni
+choices.forEach(choice => {
+    choice.addEventListener('click', e => {
+        const selected = e.target;
+        const selectedNumber = selected.dataset['number'];
 
-        const classToApply =
-            selectedAnswer == currentQuestion.answer ? 'correct' : 'incorrect';
+        // Salvează răspunsul
+        selectedAnswers[currentQuestionIndex] = parseInt(selectedNumber);
 
-        if (classToApply === 'correct') {
-            incrementScore(CORRECT_BONUS);
-        }
+        // Verifică dacă răspunsul este corect
+        const correctAnswer = questions[currentQuestionIndex].answer;
+        const classToApply = selectedNumber == correctAnswer ? 'correct' : 'incorrect';
 
-        selectedChoice.parentElement.classList.add(classToApply);
+        // Îndepărtează clasele de corect/greșit din toate opțiunile
+        choices.forEach((c, i) => {
+            c.parentElement.classList.remove('correct', 'incorrect');
+        });
 
-        // Afișează și răspunsul corect dacă jucătorul greșește
-        choices.forEach((choice) => {
-            const number = choice.dataset['number'];
-            if (number == currentQuestion.answer) {
+        // Aplică clasa corectă pentru opțiunea selectată
+        selected.parentElement.classList.add(classToApply);
+
+        // Afișează răspunsul corect
+        choices.forEach((choice, i) => {
+            if (parseInt(choice.dataset['number']) === correctAnswer) {
                 choice.parentElement.classList.add('correct');
             }
         });
 
-        setTimeout(() => {
-            choices.forEach((choice) => {
-                choice.parentElement.classList.remove('correct');
-                choice.parentElement.classList.remove('incorrect');
-            });
-
-            getNewQuestion();
-        }, 1000);
+        // Actualizează scorul
+        updateScore();
     });
 });
 
-incrementScore = (num) => {
-    score += num;
-    scoreText.innerText = score;
-};
+function updateScore() {
+    // Recalculează scorul
+    score = 0; // Resetează scorul înainte de a-l calcula
+    selectedAnswers.forEach((ans, idx) => {
+        if (ans === questions[idx].answer) {
+            score += CORRECT_BONUS; // Adaugă bonus pentru răspunsuri corecte
+        }
+    });
+    scoreText.innerText = score; // Afișează scorul actualizat pe ecran
+}
+
+// Navigare
+nextBtn.addEventListener('click', () => {
+    if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        showQuestion(currentQuestionIndex);
+    } else {
+        // Termină jocul
+        localStorage.setItem('mostRecentScore', score);
+        window.location.assign("../terminarea_jocului/end.html");
+    }
+});
+
+prevBtn.addEventListener('click', () => {
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        showQuestion(currentQuestionIndex);
+    }
+});

@@ -6,17 +6,65 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Congrats!</title>
     <link rel="stylesheet" href="../Pagina_principala/app.css" />
+    <style>
+      #username {
+        width: 100%;
+        max-width: 300px;
+        padding: 0.75rem;
+        font-size: 1rem;
+        border: 2px solid #56a5eb;
+        border-radius: 8px;
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .info-box {
+        border: 2px solid #56a5eb;
+        background-color: #f0f8ff;
+        padding: 1rem;
+        border-radius: 10px;
+        max-width: 400px;
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .info-text {
+        font-size: 1.2rem;
+        color: #333;
+        margin: 0;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #saveScoreBtn {
+        width: 100%;
+        max-width: 300px;
+        margin-top: 0.5rem;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
       <div id="end" class="flex-center flex-column">
         <h1 id="finalScore"></h1>
+
+        <!-- Mesaj informativ -->
+        <div class="info-box">
+          <p class="info-text">
+            Please enter your username below to save your score to the high scores list.
+          </p>
+        </div>
+
         <form>
           <input
             type="text"
             name="username"
             id="username"
-            placeholder="username"
+            placeholder="Enter your username"
           />
           <button
             type="submit"
@@ -28,10 +76,12 @@
             Save
           </button>
         </form>
+
         <a class="btn" href="../Pagina_principala/game.html">Play Again</a>
         <a class="btn" href="../Pagina_principala/index.html">Go Home</a>
       </div>
     </div>
+
     <script src="end.js"></script>
   </body>
 </html>

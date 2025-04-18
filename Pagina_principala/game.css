@@ -73,3 +73,48 @@
     background-color: #dc3545 !important;
     color: white;
 }
+/* Butoane Next și Previous */
+.nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.nav-buttons .btn {
+    background-color: #56a5eb;
+    color: white;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.nav-buttons .btn:hover {
+    background-color: #3a8dd6;
+}
+#category-select-container {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+#categorySelect {
+    background-color: #56a5eb;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 80%; /* Ajustează lățimea după necesități */
+}
+
+#categorySelect:hover {
+    background-color: #3a8dd6;
+}
+
+

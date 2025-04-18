@@ -8,6 +8,38 @@
     <link rel="stylesheet" href="app.css" />
     <link rel="stylesheet" href="game.css" />
     <style>
+      /* Stiluri pentru butoane */
+      .btn {
+        background-color: #56a5eb;
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border: none;
+        border-radius: 10px;
+        font-size: 1rem;
+        cursor: pointer;
+        margin: 0.5rem;
+      }
+
+      .btn:hover {
+        background-color: #3a8dd6;
+      }
+
+      /* Stil pentru selectorul de categorie */
+      #category-select {
+        background-color: #56a5eb;
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border: none;
+        border-radius: 10px;
+        font-size: 1rem;
+        cursor: pointer;
+        margin: 0.5rem;
+      }
+
+      #category-select:hover {
+        background-color: #3a8dd6;
+      }
+
       /* Progres bar stilizat */
       #progressBar {
         width: 100%;
@@ -44,22 +76,57 @@
         background-color: #dc3545 !important;
         color: white;
       }
+
+      /* Stil pentru butoanele Next/Previous */
+      .nav-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+      }
+
+      /* Stil pentru opțiuni */
+      .choice-container {
+        margin: 1rem 0;
+        cursor: pointer;
+        font-size: 1.25rem; /* Dimensiune text opțiuni mai mare */
+      }
+
+      .choice-prefix {
+        font-weight: bold;
+      }
+
+      .choice-text {
+        display: inline-block;
+        font-size: 1.25rem; /* Dimensiune text opțiuni mai mare */
+        padding: 0.5rem;
+      }
     </style>
   </head>
   <body>
-    <!-- Navbar se va încărca aici -->
+    <!-- Navbar -->
     <div id="navbar-placeholder"></div>
 
     <div class="container">
       <div id="loader"></div>
 
       <div id="game" class="justify-center flex-column hidden">
+        <!-- Selector pentru categorie -->
+        <div id="category-container" class="flex-center">
+          <select id="category-select" class="btn">
+            <option value="9">General Knowledge</option>
+            <option value="11">Entertainment: Film</option>
+            <option value="12">Entertainment: Music</option>
+            <option value="17">Science: Computers</option>
+            <option value="18">Science: Gadgets</option>
+            <!-- Adaugă mai multe opțiuni de categorie după nevoie -->
+          </select>
+        </div>
+
+        <!-- Progres și scor -->
         <div id="hud">
           <!-- Progres -->
           <div id="hud-item">
-            <p id="progressText" class="hud-prefix">
-              Question
-            </p>
+            <p id="progressText" class="hud-prefix">Question</p>
             <div id="progressBar">
               <div id="progressBarFull"></div>
             </div>
@@ -67,9 +134,7 @@
 
           <!-- Scor -->
           <div id="hud-item">
-            <p class="hud-prefix">
-              Score
-            </p>
+            <p class="hud-prefix">Score</p>
             <h1 class="hud-main-text" id="score">0</h1>
           </div>
         </div>
@@ -94,31 +159,33 @@
           <p class="choice-prefix">D</p>
           <p class="choice-text" data-number="4"></p>
         </div>
+
+        <!-- Butoane navigare -->
+        <div class="nav-buttons">
+          <button id="prevBtn" class="btn">Previous</button>
+          <button id="nextBtn" class="btn">Next</button>
+        </div>
       </div>
     </div>
 
-    <!-- Footer se va încărca aici -->
+    <!-- Footer -->
     <div id="footer-placeholder"></div>
 
+    <!-- Script pentru încărcarea navbarului și footerului -->
     <script>
-      // Încarcă navbar-ul din fișierul separat
       fetch('../navbar/navbar.html')
         .then(res => res.text())
         .then(data => {
           document.getElementById('navbar-placeholder').innerHTML = data;
-
-          // După ce navbar-ul a fost încărcat, legăm evenimentul de log out
           const logoutButton = document.getElementById('logout-btn');
           if (logoutButton) {
-            logoutButton.addEventListener('click', function() {
-              // Logica de log out
+            logoutButton.addEventListener('click', function () {
               alert('Logged out!');
-              window.location.href = "../Autentificare/login.html"; // Redirecționează utilizatorul la pagina de login
+              window.location.href = "../Autentificare/login.html";
             });
           }
         });
 
-      // Încarcă footer-ul din fișierul separat
       fetch('../footer/footer.html')
         .then(res => res.text())
         .then(data => {
@@ -126,6 +193,7 @@
         });
     </script>
 
+    <!-- Scriptul jocului -->
     <script src="game.js"></script>
   </body>
 </html>
