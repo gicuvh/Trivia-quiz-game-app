@@ -148,3 +148,40 @@ prevBtn.addEventListener('click', () => {
         showQuestion(currentQuestionIndex);
     }
 });
+// ... codul tău existent de mai sus ...
+
+// Schimbare fundal în funcție de categorie
+const categoryBackgrounds = {
+    9: 'images/general.jpg',
+    11: 'images/film.jpg',
+    12: 'images/music.jpg',
+    17: 'images/computers.jpg',
+    18: 'images/gadgets.jpg'
+};
+
+function updateBackground(categoryId) {
+    const bgUrl = categoryBackgrounds[categoryId];
+    if (bgUrl) {
+        document.body.style.backgroundImage = `url('${bgUrl}')`;
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundRepeat = 'no-repeat';
+        document.body.style.backgroundPosition = 'center';
+    } else {
+        document.body.style.backgroundImage = 'none';
+    }
+}
+
+// Când se schimbă categoria
+categorySelect.addEventListener('change', (e) => {
+    selectedCategory = e.target.value;
+    updateBackground(selectedCategory); // actualizează fundalul
+    loadQuestions(); // reîncarcă întrebările
+});
+
+// Setează fundalul inițial la încărcare
+window.addEventListener('DOMContentLoaded', () => {
+    updateBackground(selectedCategory);
+});
+
+// ... restul codului tău mai jos ...
+
