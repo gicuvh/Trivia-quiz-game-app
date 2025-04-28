@@ -152,11 +152,11 @@ prevBtn.addEventListener('click', () => {
 
 // Schimbare fundal în funcție de categorie
 const categoryBackgrounds = {
-    9: 'images/general.jpg',
-    11: 'images/film.jpg',
-    12: 'images/music.jpg',
-    17: 'images/computers.jpg',
-    18: 'images/gadgets.jpg'
+    9: 'images/general2.jpg',
+    11: 'images/film2.jpg',
+    12: 'images/music2.jpg',
+    17: 'images/computers2.jpg',
+    18: 'images/gadgets2.jpg'
 };
 
 function updateBackground(categoryId) {
