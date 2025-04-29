@@ -22,25 +22,25 @@
     <div id="footer-placeholder"></div>
 
     <script>
-      // Încarcă navbar-ul
+      
       fetch('../navbar/navbar.html')
         .then(res => res.text())
         .then(data => {
           document.getElementById('navbar-placeholder').innerHTML = data;
 
-          // După ce navbar-ul a fost inserat, atașăm evenimentul pe buton
+          
           const logoutBtn = document.getElementById('logout-btn');
           if (logoutBtn) {
             logoutBtn.addEventListener('click', () => {
               alert('You have been logged out!');
-              window.location.href = "http://127.0.0.1:5500/Autentificare/login.html"; // sau index.html, după cum ai tu pagina principală
+              window.location.href = "http://127.0.0.1:5500/Autentificare/login.html"; 
             });
           } else {
             console.warn('Butonul de logout nu a fost găsit.');
           }
         });
 
-      // Încarcă footer-ul
+      
       fetch('../footer/footer.html')
         .then(res => res.text())
         .then(data => {
