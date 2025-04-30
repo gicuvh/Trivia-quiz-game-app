@@ -1,4 +1,4 @@
-/* ----------- Stiluri existente ----------- */
+/* ----------- Stiluri pentru chenarul întrebării și variantele de răspuns ----------- */
 .choice-container {
     display: flex;
     margin-bottom: 0.5rem;
@@ -7,6 +7,7 @@
     border: 0.1rem solid rgba(86, 165, 235, 0.25);
     background-color: white;
     transition: transform 150ms, box-shadow 150ms;
+    border-radius: 8px;
 }
 
 .choice-container:hover {
@@ -19,6 +20,9 @@
     padding: 1.5rem 2.5rem;
     background-color: #56a5eb;
     color: white;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    font-weight: bold;
 }
 
 .choice-text {
@@ -26,9 +30,7 @@
     width: 100%;
 }
 
-/* ----------- Stiluri noi ----------- */
-
-/* Progres bar */
+/* ----------- Stiluri pentru bara de progres ----------- */
 #progress-container {
     width: 100%;
     background-color: #e0e0e0;
@@ -46,7 +48,7 @@
     transition: width 0.3s ease-in-out;
 }
 
-/* Chenar pentru scor */
+/* ----------- Stil pentru chenarul scorului ----------- */
 #score-box {
     background-color: #f0f8ff;
     padding: 1rem 2rem;
@@ -63,7 +65,7 @@
     color: #007acc;
 }
 
-/* Răspunsuri corecte și greșite */
+/* ----------- Stiluri pentru răspunsuri corecte și greșite ----------- */
 .correct {
     background-color: #28a745 !important;
     color: white;
@@ -73,7 +75,8 @@
     background-color: #dc3545 !important;
     color: white;
 }
-/* Butoane Next și Previous */
+
+/* ----------- Stiluri pentru butoanele Next și Previous ----------- */
 .nav-buttons {
     display: flex;
     justify-content: space-between;
@@ -95,6 +98,8 @@
 .nav-buttons .btn:hover {
     background-color: #3a8dd6;
 }
+
+/* ----------- Stil pentru selectorul de categorie ----------- */
 #category-select-container {
     margin-bottom: 1rem;
     display: flex;
@@ -102,7 +107,7 @@
     width: 100%;
 }
 
-#categorySelect {
+#category-select {
     background-color: #56a5eb;
     color: white;
     padding: 0.5rem 1.5rem;
@@ -110,11 +115,9 @@
     border-radius: 10px;
     font-size: 1rem;
     cursor: pointer;
-    width: 80%; /* Ajustează lățimea după necesități */
+    width: 80%; /* Poți modifica după preferință */
 }
 
-#categorySelect:hover {
+#category-select:hover {
     background-color: #3a8dd6;
 }
-
-

@@ -9,7 +9,7 @@ const game = document.getElementById('game');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
 
-// Selecția categoriei
+
 const categorySelect = document.getElementById('category-select');
 
 let questions = [];
@@ -18,15 +18,15 @@ let selectedAnswers = [];
 let score = 0;
 let finished = false;
 
-// Când pagina se încarcă, obține categoria selectată
-let selectedCategory = categorySelect ? categorySelect.value : 9; // Default to category 9 (General Knowledge)
+
+let selectedCategory = categorySelect ? categorySelect.value : 9;
 
 categorySelect.addEventListener('change', (e) => {
     selectedCategory = e.target.value;
-    loadQuestions(); // Reîncarcă întrebările pentru categoria aleasă
+    loadQuestions();
 });
 
-// Funcție de încărcare a întrebărilor pe baza categoriei
+
 function loadQuestions() {
     fetch(`https://opentdb.com/api.php?amount=10&category=${selectedCategory}&difficulty=easy&type=multiple`)
         .then(res => res.json())
@@ -148,7 +148,7 @@ prevBtn.addEventListener('click', () => {
         showQuestion(currentQuestionIndex);
     }
 });
-// ... codul tău existent de mai sus ...
+
 
 // Schimbare fundal în funcție de categorie
 const categoryBackgrounds = {
@@ -183,5 +183,5 @@ window.addEventListener('DOMContentLoaded', () => {
     updateBackground(selectedCategory);
 });
 
-// ... restul codului tău mai jos ...
+
 

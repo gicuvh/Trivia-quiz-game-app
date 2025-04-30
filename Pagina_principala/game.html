@@ -84,21 +84,45 @@
         margin-top: 2rem;
       }
 
-      /* Stil pentru opțiuni */
+      /* Chenar întrebare și variante */
+      .question-box {
+        background-color: #ffffff;
+        border: 2px solid #56a5eb;
+        border-radius: 16px;
+        padding: 2rem;
+        margin-top: 2rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .question-box h2 {
+        font-size: 1.5rem;
+        color: #333;
+        margin-bottom: 1.5rem;
+      }
+
       .choice-container {
-        margin: 1rem 0;
+        display: flex;
+        align-items: center;
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 0.75rem;
+        margin-bottom: 1rem;
         cursor: pointer;
-        font-size: 1.25rem; /* Dimensiune text opțiuni mai mare */
+        transition: background-color 0.3s ease;
+      }
+
+      .choice-container:hover {
+        background-color: #e6f0fc;
       }
 
       .choice-prefix {
         font-weight: bold;
+        margin-right: 1rem;
       }
 
       .choice-text {
-        display: inline-block;
-        font-size: 1.25rem; /* Dimensiune text opțiuni mai mare */
-        padding: 0.5rem;
+        font-size: 1.25rem;
       }
     </style>
   </head>
@@ -118,13 +142,11 @@
             <option value="12">Entertainment: Music</option>
             <option value="17">Science: Computers</option>
             <option value="18">Science: Gadgets</option>
-            <!-- Adaugă mai multe opțiuni de categorie după nevoie -->
           </select>
         </div>
 
         <!-- Progres și scor -->
         <div id="hud">
-          <!-- Progres -->
           <div id="hud-item">
             <p id="progressText" class="hud-prefix">Question</p>
             <div id="progressBar">
@@ -132,32 +154,32 @@
             </div>
           </div>
 
-          <!-- Scor -->
           <div id="hud-item">
             <p class="hud-prefix">Score</p>
             <h1 class="hud-main-text" id="score">0</h1>
           </div>
         </div>
 
-        <!-- Întrebare -->
-        <h2 id="question"></h2>
+        <!-- Întrebare și variante -->
+        <div class="question-box">
+          <h2 id="question">Întrebarea apare aici</h2>
 
-        <!-- Variante de răspuns -->
-        <div class="choice-container">
-          <p class="choice-prefix">A</p>
-          <p class="choice-text" data-number="1"></p>
-        </div>
-        <div class="choice-container">
-          <p class="choice-prefix">B</p>
-          <p class="choice-text" data-number="2"></p>
-        </div>
-        <div class="choice-container">
-          <p class="choice-prefix">C</p>
-          <p class="choice-text" data-number="3"></p>
-        </div>
-        <div class="choice-container">
-          <p class="choice-prefix">D</p>
-          <p class="choice-text" data-number="4"></p>
+          <div class="choice-container">
+            <p class="choice-prefix">A</p>
+            <p class="choice-text" data-number="1"></p>
+          </div>
+          <div class="choice-container">
+            <p class="choice-prefix">B</p>
+            <p class="choice-text" data-number="2"></p>
+          </div>
+          <div class="choice-container">
+            <p class="choice-prefix">C</p>
+            <p class="choice-text" data-number="3"></p>
+          </div>
+          <div class="choice-container">
+            <p class="choice-prefix">D</p>
+            <p class="choice-text" data-number="4"></p>
+          </div>
         </div>
 
         <!-- Butoane navigare -->
@@ -171,7 +193,7 @@
     <!-- Footer -->
     <div id="footer-placeholder"></div>
 
-    <!-- Script pentru încărcarea navbarului și footerului -->
+    <!-- Script pentru navbar și footer -->
     <script>
       fetch('../navbar/navbar.html')
         .then(res => res.text())
