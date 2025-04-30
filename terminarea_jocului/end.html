@@ -45,12 +45,40 @@
         max-width: 300px;
         margin-top: 0.5rem;
       }
+
+      /* Chenar pentru scor final */
+      #score-box {
+        background-color: #f0f8ff;
+        padding: 1rem 2rem;
+        border: 2px solid #56a5eb;
+        border-radius: 10px;
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+
+      #score-box p {
+        margin: 0;
+        font-size: 1.3rem;
+        color: #007acc;
+      }
+
+      #score-box span {
+        font-size: 2.5rem;
+        font-weight: bold;
+        display: block;
+        color: #007acc;
+      }
     </style>
   </head>
   <body>
     <div class="container">
       <div id="end" class="flex-center flex-column">
-        <h1 id="finalScore"></h1>
+
+        <!-- Chenar Final Score -->
+        <div id="score-box">
+          <p>Final Score</p>
+          <span id="finalScore"></span>
+        </div>
 
         <!-- Mesaj informativ -->
         <div class="info-box">
