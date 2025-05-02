@@ -60,3 +60,56 @@ a.home-link {
 a.home-link:hover {
   background-color: #005f99;
 }
+/* highScores.css */
+
+#resetButton {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: darkred;
+  color: white;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#resetButton:hover {
+  background-color: crimson;
+}
+
+/* Stilizare generală */
+#highScoresList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.high-score {
+  font-size: 18px;
+  margin: 5px 0;
+}
+/* highScores.css */
+
+/* Stilizare pentru butonul "Go Home" */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+.btn:active {
+  background-color: #3e8e41;
+  transform: scale(1);
+}
+
